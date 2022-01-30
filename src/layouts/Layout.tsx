@@ -27,7 +27,6 @@ const Layout = () => {
 				setEmail(email);
 			})
 			.catch((err) => {
-				console.log('err :', err);
 				router('/auth/login');
 			});
 	}, []);

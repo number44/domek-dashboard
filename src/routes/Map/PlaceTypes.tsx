@@ -12,7 +12,7 @@ interface PropsI {}
 
 const MapCategories = ({}: PropsI) => {
 	const [fileF, setFileF] = useState(null);
-	const [url, setUrl] = useState<string>('./Rectangle.svg');
+	const [url, setUrl] = useState<string>('http://rar.server818748.nazwa.pl/storage/Rectangle.svg');
 	const {
 		register,
 		handleSubmit,

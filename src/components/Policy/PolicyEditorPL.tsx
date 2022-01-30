@@ -28,13 +28,6 @@ const PolicyEditorPl = forwardRef(({ text }: PropsI, ref) => {
 		extensions: [StarterKit],
 		content: text,
 	});
-	// useEffect(() => {
-	// 	const html = editor?.getHTML();
-	// 	console.log('html :', html);
-	// 	if (html) {
-	// 		changePolicyPl(html);
-	// 	}
-	// }, [editPolicy]);
 	return (
 		<>
 			<EditorMenu editor={editor} />

@@ -30,7 +30,6 @@ const CreateReservation = ({}: PropsI) => {
 	};
 	const qc = useQueryClient();
 
-	console.log('data :', data);
 	const onSubmit: SubmitHandler<ReservationI> = (data) => {
 		const obj = {
 			etext: data.etext,
@@ -57,7 +56,6 @@ const CreateReservation = ({}: PropsI) => {
 			if (fileF) {
 				formData.append('icon', fileF);
 			}
-			console.log('formData :', formData);
 			return axios.post('/reservations', formData, config);
 			return new Promise((res, rej) => {});
 		},

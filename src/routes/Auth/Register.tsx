@@ -13,7 +13,6 @@ const Register = ({}: PropsI) => {
 		formState: { errors },
 	} = useForm<RegisterI>();
 	const onSubmit: SubmitHandler<RegisterI> = (data) => {
-		console.log('dataForm :', data);
 		mutation.mutate(data);
 	};
 
@@ -23,9 +22,11 @@ const Register = ({}: PropsI) => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log('token :', data.data.token);
 				window.localStorage.setItem('key', data.data.token);
 				router('/');
+			},
+			onError: () => {
+				alert('coś poszło nie tak');
 			},
 		}
 	);

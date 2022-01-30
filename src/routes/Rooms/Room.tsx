@@ -23,10 +23,11 @@ import useAboutStore from '../../store/about';
 import { IoIosImages } from 'react-icons/io';
 import useFormStore from '../../store/formStore';
 import Alert from '../../components/Alert';
+import Loader from '../../components/Loader';
 interface PropsI {}
 const Room = ({}: PropsI) => {
 	const formPart = useFormStore((store) => store.formPart);
-
+	const [pepLoading, setPepLoading] = useState<boolean>(false);
 	const params = useParams();
 	if (!params.id) {
 		return <Box>Error no data</Box>;
@@ -42,7 +43,7 @@ const Room = ({}: PropsI) => {
 	}, [data]);
 	const [lang, setLang] = useState<string>('pl');
 	const routes = useNavigate();
-	const [url, setUrl] = useState<string>('./Rectangle.svg');
+	const [url, setUrl] = useState<string>('http://rar.server818748.nazwa.pl/storage/Rectangle.svg');
 	const [fileF, setFileF] = useState(null);
 	const results = useQueries([
 		{ queryKey: ['locations'], queryFn: fetchLocations },
@@ -78,7 +79,6 @@ const Room = ({}: PropsI) => {
 	const [prices, setPrices] = useState<PricesI>();
 	useEffect(() => {
 		axios.get('/prices/1').then((res) => {
-			console.log('data :', res.data.data);
 			setPrices(res.data.data);
 		});
 	}, []);
@@ -259,8 +259,6 @@ const Room = ({}: PropsI) => {
 			formData.append('price_3', newData.price_3.toString());
 			formData.append('price_4', newData.price_4.toString());
 
-			console.log('formData :', formData);
-
 			return axios.post(`/rooms/${newId}`, formData, config);
 		},
 		{
@@ -287,7 +285,7 @@ const Room = ({}: PropsI) => {
 
 	const uploadFromPepe = () => {
 		let son_id = data?.son_id;
-
+		setPepLoading(true);
 		axios.get('/pep').then((res) => {
 			const propertyArr: any = res.data.url.rooms.property;
 			const specificProperty: any = propertyArr.find((p: any) => parseInt(p.room.room_id) === son_id);
@@ -300,11 +298,13 @@ const Room = ({}: PropsI) => {
 				}
 			});
 			let son_availability = result[0].availability.start_date;
-			let son_price = result[0].price.per_month;
-			console.log('son_price :', son_price);
-			console.log('data.id :', data?.id);
+			let son_price: number = parseInt(result[0].price.per_month);
+			setValue('availability', son_availability);
+			setValue('price', son_price);
+			setPepLoading(false);
 		});
 	};
+
 	return (
 		<>
 			<div className="flex justify-end">
@@ -329,8 +329,8 @@ const Room = ({}: PropsI) => {
 			<div className="h-4"></div>
 			{formPart === 0 && (
 				<Box className="mb-8">
-					<motion.button onClick={uploadFromPepe} whileHover={{ scaleY: 0.97 }} className="w-full  font-semibold cursor-pointer  bg-primary hover:opacity-9 text-zinc-100 px-3 py-2 rounded-sm">
-						Uzupełnij dane z Pepehousing
+					<motion.button onClick={uploadFromPepe} whileHover={{ scaleY: 0.97 }} className="w-full  overflow-hidden h-20 font-semibold cursor-pointer  bg-primary hover:opacity-9 text-zinc-100 px-3 py-2 rounded-sm">
+						{pepLoading ? <Loader /> : 'Uzupełnij dane z Pepehousing'}
 					</motion.button>
 				</Box>
 			)}

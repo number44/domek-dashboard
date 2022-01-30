@@ -8,7 +8,6 @@ import Box from '../layouts/Box';
 
 const PricesForm = ({ prices }: PropsI) => {
 	const { a1, a2, b1, b2, c1, c2 } = prices;
-	console.log('prices :', prices);
 	const {
 		register,
 		handleSubmit,

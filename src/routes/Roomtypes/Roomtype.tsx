@@ -16,7 +16,6 @@ const Roomtype = ({}: PropsI) => {
 	}
 	const newId = parseInt(params.id);
 	const { data, isError, isLoading, error } = useQuery<RoomtypeI, Error>(['roomtypes', newId], () => fetchRoomtype(newId));
-	console.log('data :', data);
 
 	useEffect(() => {
 		if (data?.name && data?.ename) {
@@ -42,7 +41,7 @@ const Roomtype = ({}: PropsI) => {
 	};
 	const mutation = useMutation(
 		(newData: RoomtypeI) => {
-			return axios.post(`/roomtypes/${newId}`, newData).then((data) => console.log('data :', data));
+			return axios.post(`/roomtypes/${newId}`, newData);
 		},
 		{
 			onSuccess: async () => {
@@ -52,7 +51,7 @@ const Roomtype = ({}: PropsI) => {
 				routes('/roomtypes');
 			},
 			onError: (err) => {
-				console.log('err :', err);
+				alert('coś poszło nie tak');
 			},
 		}
 	);

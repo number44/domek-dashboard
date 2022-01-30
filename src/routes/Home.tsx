@@ -17,7 +17,6 @@ const Home = ({}: PropsI) => {
 	const [prices, setPrices] = useState<PricesI>();
 	useEffect(() => {
 		axios.get('/prices/1').then((res) => {
-			console.log('data :', res.data.data);
 			setPrices(res.data.data);
 		});
 	}, []);

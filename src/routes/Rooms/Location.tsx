@@ -51,7 +51,6 @@ const Location = ({}: PropsI) => {
 		}
 	}, [data]);
 	const onSubmit: SubmitHandler<LocationI> = (data) => {
-		console.log('data :', data);
 		mutationUpdate.mutate(data);
 	};
 
@@ -112,7 +111,7 @@ const Location = ({}: PropsI) => {
 						<RefreshMap lat={lat} lon={lon} zoom={13} />
 						<TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 						<Marker position={[lat, lon]}>
-							<Popup>New Place</Popup>
+							<Popup>Nowa Lokalizacja</Popup>
 						</Marker>
 					</MapContainer>
 				</div>
@@ -125,13 +124,13 @@ const Location = ({}: PropsI) => {
 							<img className=" w-96 aspect-video  object-cover mx-auto rounded-sm dark:bg-slate-700 bg-slate-100" src={url} />
 							<input type="file" {...register('thumbnail', { required: false })} onChange={onChangeFile} className="hidden" name="image" />
 						</label>
-						{errors.thumbnail && <div className=" w-full  text-center text-red-800">thumbnail is required</div>}
-						<label htmlFor="name">Polish Name</label>
+						{errors.thumbnail && <div className=" w-full  text-center text-red-800">Zdjęcie wymagane</div>}
+						<label htmlFor="name">Polska nazwa</label>
 						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('name', { required: true, minLength: 4 })} />
-						{errors.name && <p className=" w-full  text-red-800 ">Create name min 4 characters</p>}
+						{errors.name && <p className=" w-full  text-red-800 ">Musi zawierać min. 4 znaki</p>}
 
 						<label className="mt-2" htmlFor="name">
-							English Name
+							Angielska nazwa
 						</label>
 
 						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('ename', { required: true, minLength: 4 })} />

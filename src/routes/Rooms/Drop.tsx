@@ -86,6 +86,7 @@ const Drop = ({}: PropsI) => {
 	return (
 		<div>
 			<Box>
+				xxxx
 				<section className="h-64 items-stretch justify-between  	    flex-col  border-4 border-slate-300 border-dotted cursor-pointer">
 					<div {...getRootProps({ className: 'dropzone' })} className=" h-full flex-center">
 						<input {...getInputProps()} />
@@ -108,8 +109,8 @@ const Drop = ({}: PropsI) => {
 
 			<div className="grid grid-cols-2 md:grid-cols-4 gap-2 my-8">
 				{myFiles.map((f, index) => (
-					<Box key={index} className=" aspect-video">
-						<img className="" src={URL.createObjectURL(f)} alt="" />
+					<Box key={index} className=" aspect-">
+						<img className="aspect-[4/3]" src={URL.createObjectURL(f)} alt="" />
 					</Box>
 				))}
 			</div>

@@ -28,9 +28,7 @@ const Policy = ({}: PropsI) => {
 	};
 	const qc = useQueryClient();
 
-	console.log('data :', data);
 	const onSubmit: SubmitHandler<ReservationI> = (data) => {
-		console.log('data :', data);
 		const obj = {
 			etext: data.etext,
 			text: data.text,
@@ -40,7 +38,6 @@ const Policy = ({}: PropsI) => {
 
 	const mutation = useMutation(
 		(newData: PolicyFormI) => {
-			console.log('newData :', newData);
 			const config = {
 				headers: {
 					'content-type': 'multipart/form-data',

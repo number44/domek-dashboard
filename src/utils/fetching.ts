@@ -23,7 +23,7 @@ async function fetchPlaces() {
 }
 async function fetchLocations() {
 	const { data } = await axios.get(`/locations`);
-	return data.data;
+	return data;
 }
 async function fetchDistricts() {
 	const { data } = await axios.get(`/districts`);
@@ -71,6 +71,11 @@ async function fetchMedia() {
 	const { data } = await axios.get('/files');
 	return data;
 }
+async function fetchFilteredRooms() {
+	const { data } = await axios.get('/rooms');
+	return data;
+}
+
 async function fetchPrices() {
 	const { data } = await axios.get('/prices/1');
 	return data.data;
@@ -85,4 +90,25 @@ async function fetchPolicy() {
 	const { data } = await axios.get('/policies/1');
 	return data.data;
 }
-export { fetchPolicy, fetchReservations, fetchPrices, fetchMedia, fetchNote, fetchPictures, fetchDistrict, fetchDistricts, fetchRoomtype, searchRooms, fetchRooms, fetchRoomtypes, fetchRoom, fetchNotes, fetchCategories, fetchMapCategories, fetchLocations, fetchLocation, fetchPlaces };
+export {
+	fetchFilteredRooms,
+	fetchPolicy,
+	fetchReservations,
+	fetchPrices,
+	fetchMedia,
+	fetchNote,
+	fetchPictures,
+	fetchDistrict,
+	fetchDistricts,
+	fetchRoomtype,
+	searchRooms,
+	fetchRooms,
+	fetchRoomtypes,
+	fetchRoom,
+	fetchNotes,
+	fetchCategories,
+	fetchMapCategories,
+	fetchLocations,
+	fetchLocation,
+	fetchPlaces,
+};

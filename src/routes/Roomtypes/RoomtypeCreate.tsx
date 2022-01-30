@@ -21,7 +21,7 @@ const RoomtypeCreate = ({}: PropsI) => {
 	};
 	const mutation = useMutation(
 		(newData: RoomtypeI) => {
-			return axios.post(`/roomtypes/`, newData).then((data) => console.log('data :', data));
+			return axios.post(`/roomtypes/`, newData);
 		},
 		{
 			onSuccess: async () => {
@@ -31,7 +31,7 @@ const RoomtypeCreate = ({}: PropsI) => {
 				routes('/roomtypes');
 			},
 			onError: (err) => {
-				console.log('err :', err);
+				alert('coś poszło nie tak');
 			},
 		}
 	);

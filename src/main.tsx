@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css';
 
 //axios.defaults.baseURL = 'http://server818748.nazwa.pl/rarpanel/api';
 
-if (window.location.host === 'localhost:3000') {
+if (window.location.host === 'localhost:3000' || 'localhost:5000') {
 	// Dev
 	axios.defaults.baseURL = 'http://localhost:8000/api';
 } else {

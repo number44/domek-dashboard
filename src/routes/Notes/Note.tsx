@@ -39,7 +39,6 @@ const example = ({}: PropsI) => {
 			</Box>
 		);
 	}
-	console.log('data :', data);
 	return (
 		<>
 			<Box className="mb-4 flex items-center justify-between">

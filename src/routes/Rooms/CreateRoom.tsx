@@ -24,7 +24,6 @@ const RoomCreate = ({}: PropsI) => {
 	const [prices, setPrices] = useState<PricesI>();
 	useEffect(() => {
 		axios.get('/prices/1').then((res) => {
-			console.log('data :', res.data.data);
 			setPrices(res.data.data);
 		});
 	}, []);
@@ -33,7 +32,7 @@ const RoomCreate = ({}: PropsI) => {
 
 	const [lang, setLang] = useState<string>('pl');
 	const routes = useNavigate();
-	const [url, setUrl] = useState<string>('./Rectangle.svg');
+	const [url, setUrl] = useState<string>('http://rar.server818748.nazwa.pl/storage/Rectangle.svg');
 	const [fileF, setFileF] = useState(null);
 	const results = useQueries([
 		{ queryKey: ['locations'], queryFn: fetchLocations },
@@ -149,7 +148,6 @@ const RoomCreate = ({}: PropsI) => {
 	const onSubmit: SubmitHandler<RoomI> = (data) => {
 		AboutPlRef.current?.uploadEditor();
 		AboutEnRef.current?.uploadEditor();
-		console.log('data :', data);
 		mutation.mutate(data);
 	};
 	const mutation = useMutation(
@@ -160,8 +158,6 @@ const RoomCreate = ({}: PropsI) => {
 				},
 			};
 			const formData = new FormData();
-			console.log('newData :', newData);
-			console.log('son_id :', son_id);
 			formData.append('thumbnail', fileF ? fileF : 'thumbnail');
 			formData.append('son_id', son_id.toString());
 			formData.append('location_id', newData.location_id.toString());
@@ -207,7 +203,6 @@ const RoomCreate = ({}: PropsI) => {
 			formData.append('price_3', newData.price_3.toString());
 			formData.append('price_4', newData.price_4.toString());
 
-			console.log('formData :', formData);
 			return axios.post('/rooms', formData, config);
 		},
 		{
@@ -217,7 +212,7 @@ const RoomCreate = ({}: PropsI) => {
 				routes('/rooms');
 			},
 			onError: (e) => {
-				console.log('error :', e);
+				alert('coś poszło nie tak');
 			},
 		}
 	);

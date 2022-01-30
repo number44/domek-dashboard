@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchLocations } from '../../utils/fetching';
+import { useEffect } from 'react';
 
 interface PropsI {}
 const Locations = ({}: PropsI) => {

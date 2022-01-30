@@ -16,7 +16,6 @@ const Login = ({}: PropsI) => {
 	} = useForm<LoginI>();
 
 	const onSubmit: SubmitHandler<LoginI> = (data) => {
-		console.log('xxxx :', data);
 		mutation.mutate(data);
 	};
 
@@ -26,7 +25,6 @@ const Login = ({}: PropsI) => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log('data :', data.data.token);
 				window.localStorage.setItem('key', data.data.token);
 				router('/');
 			},

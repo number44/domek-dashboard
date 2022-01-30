@@ -21,7 +21,7 @@ const DistrictCreate = ({}: PropsI) => {
 	};
 	const mutation = useMutation(
 		(newData: DistrictI) => {
-			return axios.post(`/districts`, newData).then((data) => console.log('data :', data));
+			return axios.post(`/districts`, newData);
 		},
 		{
 			onSuccess: () => {
@@ -29,7 +29,7 @@ const DistrictCreate = ({}: PropsI) => {
 				routes('/districts');
 			},
 			onError: (err) => {
-				console.log('err :', err);
+				alert('Coś poszło nie tak');
 			},
 		}
 	);

@@ -10,6 +10,7 @@ import { fetchMapCategories } from '../utils/fetching';
 import axios from 'axios';
 import queryClient from '../utils/queryClient';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from 'leaflet';
 interface PropsI {}
 const CreatePlace = ({}: PropsI) => {
 	const routes = useNavigate();
@@ -21,6 +22,14 @@ const CreatePlace = ({}: PropsI) => {
 	useEffect(() => {
 		changeCoordinates(51.759445, 19.457216);
 	}, []);
+	const myIcon = new Icon({
+		iconUrl: 'http://rar.server818748.nazwa.pl/storage/marker-primary.svg',
+		iconSize: [38, 50], // size of the icon
+		// shadowSize: [50, 64], // size of the shadow
+		iconAnchor: [14, 50], // point of the icon which will correspond to marker's location
+		// shadowAnchor: [4, 62], // the same for the shadow
+		// popupAnchor: [-3, -76],
+	});
 
 	useEffect(() => {
 		setValue('lat', lat);
@@ -42,7 +51,6 @@ const CreatePlace = ({}: PropsI) => {
 	});
 	const onSubmit: SubmitHandler<PlaceI> = (data) => {
 		if (confirm('Create ?')) {
-			console.log('data created :', data);
 			if (data.name && data.ename && data.lat && data.lon && data.placetype_id) {
 				mutation.mutate({
 					name: data.name,
@@ -72,7 +80,7 @@ const CreatePlace = ({}: PropsI) => {
 					<MapContainer className="h-96 z-10" center={[lat, lon]} zoom={13}>
 						<RefreshMap lat={lat} lon={lon} zoom={13} />
 						<TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-						<Marker position={[lat, lon]}>
+						<Marker icon={myIcon} position={[lat, lon]}>
 							<Popup>New Place</Popup>
 						</Marker>
 					</MapContainer>
@@ -82,16 +90,16 @@ const CreatePlace = ({}: PropsI) => {
 			<div className="py-4">
 				<Box>
 					<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col max-w-sm mx-auto">
-						<label htmlFor="name">Polish Name</label>
+						<label htmlFor="name">Polska nazwa</label>
 						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('name', { required: true, minLength: 4 })} />
-						{errors.name && <p className=" w-full  text-red-800 ">Create name min 4 characters</p>}
+						{errors.name && <p className=" w-full  text-red-800 ">Min. cztery znaki</p>}
 
 						<label className="mt-2" htmlFor="name">
-							English Name
+							Angielska nazwa
 						</label>
 
 						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('ename', { required: true, minLength: 4 })} />
-						{errors.ename && <p className=" w-full  text-red-800 ">Create name min 4 characters</p>}
+						{errors.ename && <p className=" w-full  text-red-800 ">Min. cztery znaki</p>}
 
 						<label className="mt-2" htmlFor="lat">
 							Latitude
@@ -107,7 +115,7 @@ const CreatePlace = ({}: PropsI) => {
 						{errors.lon && <p className=" w-full  text-red-800 ">Add longitude</p>}
 
 						<label className="mt-2" htmlFor="placetype_id">
-							Place Type
+							Kategoria miejsca
 						</label>
 
 						<select className="dark:bg-zinc-700 my-2  w-full" {...register('placetype_id', { required: true })}>
@@ -118,9 +126,9 @@ const CreatePlace = ({}: PropsI) => {
 									</option>
 								))}
 						</select>
-						{errors.placetype_id && <p className=" w-full  text-red-800 ">Choose place Type</p>}
+						{errors.placetype_id && <p className=" w-full  text-red-800 ">Pole wymagane</p>}
 
-						<input type="submit" value="Create" className="bg-primary font-semibold cursor-pointer w-full   mt-4 hover:opacity-90 mb-4  text-zinc-100 px-3 py-2 rounded-sm" />
+						<input type="submit" value="Utwórz" className="bg-primary font-semibold cursor-pointer w-full   mt-4 hover:opacity-90 mb-4  text-zinc-100 px-3 py-2 rounded-sm" />
 					</form>
 				</Box>
 			</div>

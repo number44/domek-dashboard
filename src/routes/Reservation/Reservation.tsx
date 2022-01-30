@@ -33,7 +33,6 @@ const Reservation = ({ data }: PropsI) => {
 		},
 	});
 	const onSubmit = (fData: ReservationI) => {
-		console.log('data :', fData);
 		const obj = {
 			title: fData.title,
 			etitle: fData.etitle,
@@ -59,9 +58,6 @@ const Reservation = ({ data }: PropsI) => {
 			if (fileF) {
 				formData.append('icon', fileF);
 			}
-			console.log('newData :', newData);
-			console.log('formData :', formData);
-			console.log('data :', data);
 			axios.post(`/reservations/${data.id}`, formData, config);
 			return new Promise((resolve, reject) => {});
 		},

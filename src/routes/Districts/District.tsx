@@ -18,7 +18,6 @@ const District = ({}: PropsI) => {
 	}
 	const newId = parseInt(params.id);
 	const { data, isError, isLoading, error } = useQuery<DistrictI, Error>(['district', newId], () => fetchDistrict(newId));
-	console.log('data :', data);
 
 	useEffect(() => {
 		if (data?.name && data?.ename) {
@@ -45,7 +44,7 @@ const District = ({}: PropsI) => {
 	const mutation = useMutation(
 		(newData: DistrictI) => {
 			alert('mu');
-			return axios.post(`/districts/${newId}`, newData).then((data) => console.log('data :', data));
+			return axios.post(`/districts/${newId}`, newData);
 		},
 		{
 			onSuccess: () => {
@@ -53,9 +52,7 @@ const District = ({}: PropsI) => {
 				reset();
 				routes('/districts');
 			},
-			onError: (err) => {
-				console.log('err :', err);
-			},
+			onError: (err) => {},
 		}
 	);
 
