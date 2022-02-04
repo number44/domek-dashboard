@@ -14,7 +14,6 @@ interface CategoryI {
 interface PlaceTypesI {
 	id?: number;
 	name?: string;
-	ename?: string;
 	icon?: string;
 }
 interface ImageI {
@@ -24,7 +23,6 @@ interface ImageI {
 interface PlaceI {
 	id?: number;
 	name?: string;
-	ename?: string;
 	lat?: number;
 	lon?: number;
 	placetype?: string;
@@ -102,19 +100,6 @@ interface DistrictI {
 	ename: string;
 }
 
-interface PictureI {
-	id?: number;
-	name: string;
-	picture?: string;
-	picture_xs?: string;
-	picture_sm?: string;
-	picture_md?: string;
-	picture_lg?: string;
-	room_id: number;
-	updated_at?: string;
-	created_at?: string;
-}
-
 interface MediaI {
 	id: number;
 	name: string;
@@ -144,4 +129,47 @@ interface PolicyI {
 	id: number;
 	text: string;
 	etext: string;
+}
+
+interface InfoI {
+	tel: string;
+	email: string;
+}
+
+interface SlideI {
+	id: number;
+	header: string;
+	description: string;
+	// picture_id: number;
+	picture: SlidePicureI;
+}
+
+interface PictureI {
+	id: number;
+	name: string;
+	picture: string;
+	picture_xs: string;
+	picture_sm: string;
+	picture_md: string;
+	picture_lg: string;
+	updated_at: string;
+	created_at: string;
+}
+interface SlidePicureI {
+	id: number;
+	picture: string;
+	picture_xs: string;
+	picture_sm: string;
+	picture_md: string;
+	picture_lg: string;
+}
+
+interface SectionI {
+	id: number;
+	title: string;
+	content: string;
+	picture_1: number;
+	picture_2: number;
+	picture_3: number;
+	picture_4: number;
 }

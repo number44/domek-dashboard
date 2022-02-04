@@ -59,10 +59,6 @@ async function searchRooms(query: string) {
 	const { data } = await axios.get(`/rooms/search/${query}`);
 	return data.data;
 }
-async function fetchPictures() {
-	const { data } = await axios.get('/pictures');
-	return data;
-}
 async function fetchUsers() {
 	const { data } = await axios.get('/auth/users');
 	return data;
@@ -90,14 +86,32 @@ async function fetchPolicy() {
 	const { data } = await axios.get('/policies/1');
 	return data.data;
 }
+
+// gagi
+async function fetchSlides() {
+	const { data } = await axios.get('/slides');
+	return data.data;
+}
+async function fetchPictures() {
+	const { data } = await axios.get('/pictures');
+	return data;
+}
+async function fetchSlide(id: number) {
+	const { data } = await axios.get(`/slide/${id}`);
+	return data;
+}
+
 export {
+	fetchSlide,
+	fetchPictures,
+	fetchSlides,
+	//gagi
 	fetchFilteredRooms,
 	fetchPolicy,
 	fetchReservations,
 	fetchPrices,
 	fetchMedia,
 	fetchNote,
-	fetchPictures,
 	fetchDistrict,
 	fetchDistricts,
 	fetchRoomtype,

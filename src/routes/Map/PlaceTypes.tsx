@@ -12,7 +12,8 @@ interface PropsI {}
 
 const MapCategories = ({}: PropsI) => {
 	const [fileF, setFileF] = useState(null);
-	const [url, setUrl] = useState<string>('http://rar.server818748.nazwa.pl/storage/Rectangle.svg');
+	const [url, setUrl] = useState<string>('https://via.placeholder.com/468x60?text=+');
+
 	const {
 		register,
 		handleSubmit,
@@ -21,7 +22,7 @@ const MapCategories = ({}: PropsI) => {
 		formState: { errors },
 	} = useForm<PlaceTypesI>();
 	const onSubmit: SubmitHandler<any> = (data) => {
-		mutation.mutate({ name: data.name, ename: data.ename, icon: data.icon[0] });
+		mutation.mutate({ name: data.name, icon: data.icon[0] });
 
 		// mutation.mutate()
 		reset();
@@ -46,7 +47,6 @@ const MapCategories = ({}: PropsI) => {
 			};
 			const formData = new FormData();
 			formData.append('name', newNote.name ? newNote.name : 'name');
-			formData.append('ename', newNote.ename ? newNote.ename : 'name');
 			formData.append('icon', fileF ? fileF : 'name');
 
 			return axios.post('/placetypes', formData, config);
@@ -67,11 +67,7 @@ const MapCategories = ({}: PropsI) => {
 					<label htmlFor="name">Polska nazwa</label>
 					{errors.name && <Alert>Polska nazwa wymagana required</Alert>}
 
-					<input autoComplete="off" className="w-full mt-4 rounded-sm dark:bg-zinc-700" type="text" {...register('ename', { required: true })} />
-					<label htmlFor="name">Angielska nazwa</label>
-					{errors.ename && <Alert>Angielska nazwa wymagana</Alert>}
-					{/* <input aria-label="dsdsds" className="w-full mt-4 rounded-lg" type="file" {...(register('icon'), { required: true })} /> */}
-					<label className="icon-image bg-cyan-500 font-semibold cursor-pointer self-center my-3  mt-2 hover:bg-cyan-600 text-zinc-100  rounded-lg">
+					<label className="icon-image  font-semibold cursor-pointer self-center my-3  mt-2 hover:bg-cyan-600 text-zinc-100  rounded-lg">
 						<img className=" w-32 h-32 mx-auto rounded-sm dark:bg-slate-700 bg-slate-100" src={url} />
 						<input type="file" {...register('icon', { required: true })} onChange={onChangeFile} className="hidden" name="image" />
 					</label>

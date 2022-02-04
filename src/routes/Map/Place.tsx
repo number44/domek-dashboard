@@ -33,7 +33,6 @@ const Place = ({ place }: PropsI) => {
 						</div>
 
 						<h1 className="my-2">PL : {place.name}</h1>
-						<h1 className="my-2">EN : {place.ename}</h1>
 						<h1 className="my-2">lat : {place.lat}</h1>
 						<h1 className="my-2">lon : {place.lon}</h1>
 						<h1 className="my-2">Kategoria : {place.placetype}</h1>

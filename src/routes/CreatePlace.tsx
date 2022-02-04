@@ -23,7 +23,7 @@ const CreatePlace = ({}: PropsI) => {
 		changeCoordinates(51.759445, 19.457216);
 	}, []);
 	const myIcon = new Icon({
-		iconUrl: 'http://rar.server818748.nazwa.pl/storage/marker-primary.svg',
+		iconUrl: 'https://domekwgorachsowich.pl/assets/marker-primary.svg',
 		iconSize: [38, 50], // size of the icon
 		// shadowSize: [50, 64], // size of the shadow
 		iconAnchor: [14, 50], // point of the icon which will correspond to marker's location
@@ -51,10 +51,9 @@ const CreatePlace = ({}: PropsI) => {
 	});
 	const onSubmit: SubmitHandler<PlaceI> = (data) => {
 		if (confirm('Create ?')) {
-			if (data.name && data.ename && data.lat && data.lon && data.placetype_id) {
+			if (data.name && data.lat && data.lon && data.placetype_id) {
 				mutation.mutate({
 					name: data.name,
-					ename: data.ename,
 					lat: data.lat,
 					lon: data.lon,
 					placetype_id: data.placetype_id,
@@ -90,16 +89,9 @@ const CreatePlace = ({}: PropsI) => {
 			<div className="py-4">
 				<Box>
 					<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col max-w-sm mx-auto">
-						<label htmlFor="name">Polska nazwa</label>
+						<label htmlFor="name">Nazwa</label>
 						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('name', { required: true, minLength: 4 })} />
 						{errors.name && <p className=" w-full  text-red-800 ">Min. cztery znaki</p>}
-
-						<label className="mt-2" htmlFor="name">
-							Angielska nazwa
-						</label>
-
-						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('ename', { required: true, minLength: 4 })} />
-						{errors.ename && <p className=" w-full  text-red-800 ">Min. cztery znaki</p>}
 
 						<label className="mt-2" htmlFor="lat">
 							Latitude

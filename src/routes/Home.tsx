@@ -7,84 +7,59 @@ import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';
 import useAuthStore from '../store/authStore';
 import PricesForm from '../components/PricesForm';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Input, Select } from '@mui/material';
 const Home = ({}: PropsI) => {
-	const aboutPl = useStore((state) => state.aboutPl);
-	const aboutEn = useStore((state) => state.aboutEn);
-	const changePl = useStore((state) => state.changeAboutPl);
-	const name = useAuthStore((state) => state.name);
-	const [prices, setPrices] = useState<PricesI>();
 	useEffect(() => {
-		axios.get('/prices/1').then((res) => {
-			setPrices(res.data.data);
+		axios.get('/info').then((data) => {
+			console.log('data.data.tel :', data.data.data);
+			setValue('tel', data.data.data.tel);
+			setValue('email', data.data.data.email);
 		});
 	}, []);
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+		setValue,
+	} = useForm({});
+
+	const name = useAuthStore((state) => state.name);
+	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+		console.log(data);
+		if (confirm('Cześć agata jesteś pewna że chcesz to zmienić ?')) {
+			axios.post('/info', { tel: data.tel, email: data.email });
+		}
+	};
+
 	return (
-		<div>
-			<Link to="/auth/register">
-				<Box className="mb-8  text-lg uppercase font-semibold">Witam , {name} </Box>
-			</Link>
-			<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-				<motion.div whileHover={{ scale: 0.95 }} className="cursor-pointer">
-					<Link to={`/locations/create`}>
-						<Box>
-							<div className="flex items-center justify-between p-8">
-								<h2 className="text-lg text-slate-800 dark:text-slate-200 ">Dodaj Lokalizację</h2>
-								<BsPlusLg />
-							</div>
-						</Box>
-					</Link>
-				</motion.div>
-				<motion.div whileHover={{ scale: 0.95 }} className="cursor-pointer">
-					<Link to={`/rooms/create`}>
-						<Box>
-							<div className="flex items-center justify-between p-8">
-								<h2 className="text-lg text-slate-800 dark:text-slate-200 ">Dodaj Pokój</h2>
-								<BsPlusLg />
-							</div>
-						</Box>
-					</Link>
-				</motion.div>
-				<motion.div whileHover={{ scale: 0.95 }} className="cursor-pointer">
-					<Link to={`/map/categories`}>
-						<Box>
-							<div className="flex items-center justify-between p-8">
-								<h2 className="text-lg text-slate-800 dark:text-slate-200 ">Dodaj typ miejsca</h2>
-								<BsPlusLg />
-							</div>
-						</Box>
-					</Link>
-				</motion.div>
-				<motion.div whileHover={{ scale: 0.95 }} className="cursor-pointer">
-					<Link to={`/map/create`}>
-						<Box>
-							<div className="flex items-center justify-between p-8">
-								<h2 className="text-lg text-slate-800 dark:text-slate-200 ">Dodaj Miejsce</h2>
-								<BsPlusLg />
-							</div>
-						</Box>
-					</Link>
-				</motion.div>
-				<motion.div whileHover={{ scale: 0.95 }} className="cursor-pointer">
-					<Link to={`/media`}>
-						<Box>
-							<div className="flex items-center justify-between p-8">
-								<h2 className="text-lg text-slate-800 dark:text-slate-200 ">Pliki</h2>
-								<BsPlusLg />
-							</div>
-						</Box>
-					</Link>
-				</motion.div>
-			</div>
-			<div className="h-8"></div>
-			<Box className="max-w-sm mx-auto">
-				<h1>Poziomy Cen</h1>
+		<>
+			<Box>Gagi : {name}</Box>
+			<Box className="mt-8 max-w-md">
+				<form onSubmit={handleSubmit(onSubmit)}>
+					{/* <input step={0.0000001} autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="number" {...register('lon', { required: true })} /> */}
+					<label htmlFor="tel">nr tel</label>
+					<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('tel', { required: true })} />
+					{errors.tel && <p className=" w-full  text-red-800 ">numer min. 9 cyfrowy</p>}
+					<div className="h-4"></div>
+					<label htmlFor="email">
+						email
+						<input autoComplete="off" className="mx-auto w-full  mt-2  rounded-sm dark:bg-zinc-700" type="text" {...register('email', { required: true, minLength: 4 })} />
+						{errors.email && <p className=" w-full  text-red-800 ">pole wymagane min.4</p>}
+					</label>
+
+					<input type="submit" value="Edytuj" className="bg-primary font-semibold cursor-pointer w-full   mt-4 hover:opacity-90 mb-4  text-zinc-100 px-3 py-2 rounded-sm" />
+				</form>
 			</Box>
-			<div className="h-8"></div>
-			<Box className="max-w-sm mx-auto">{prices && <PricesForm prices={prices} />}</Box>
-		</div>
+		</>
 	);
 };
 
 export default Home;
+interface IFormInput {
+	tel: number;
+	email: string;
+}

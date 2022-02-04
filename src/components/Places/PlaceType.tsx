@@ -28,7 +28,6 @@ const PlaceType = ({ placeType }: PropsI) => {
 	} = useForm<PlaceTypesI>({
 		defaultValues: {
 			name: placeType.name,
-			ename: placeType.ename,
 			icon: placeType.icon,
 		},
 	});
@@ -36,7 +35,7 @@ const PlaceType = ({ placeType }: PropsI) => {
 
 	const onSubmit: SubmitHandler<any> = (data) => {
 		if (confirm('Na pewno edytować ?')) {
-			mutationUpdate.mutate({ name: data.name, ename: data.ename });
+			mutationUpdate.mutate({ name: data.name });
 		}
 	};
 	const onChangeFile = (e: any) => {
@@ -53,7 +52,6 @@ const PlaceType = ({ placeType }: PropsI) => {
 			};
 			const formData = new FormData();
 			formData.append('name', newNote.name ? newNote.name : 'name');
-			formData.append('ename', newNote.ename ? newNote.ename : 'ename');
 			if (fileF) {
 				formData.append('icon', fileF ? fileF : 'icon');
 			}
@@ -90,16 +88,13 @@ const PlaceType = ({ placeType }: PropsI) => {
 
 						<input type="text" {...register('name', { required: true })} className="w-full mt-4 rounded-sm dark:bg-zinc-700" />
 						<label htmlFor="name">nazwa polska</label>
-						{errors.ename && <Alert>english name required</Alert>}
-						<input type="text" {...register('ename', { required: true })} className="w-full mt-4 rounded-sm dark:bg-zinc-700" />
-						<label htmlFor="name">nazwa angielska</label>
 
 						<label className="icon-image bg-cyan-500 font-semibold cursor-pointer self-center my-3  mt-2 hover:bg-cyan-600 text-zinc-100  rounded-lg">
 							<img className=" w-32 h-32 mx-auto rounded-sm dark:bg-slate-700 bg-slate-100" src={url} />
 							<input type="file" {...register('icon', { required: false })} onChange={onChangeFile} className="hidden" name="image" />
 						</label>
 						<button type="submit" className="bg-primary font-semibold cursor-pointer    mt-2 hover:opacity-90 text-zinc-100 px-3 py-2 rounded-sm">
-							Edit
+							Edytuj
 						</button>
 					</form>
 				</Box>

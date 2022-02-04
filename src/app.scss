@@ -1,6 +1,7 @@
 @use './styles/editor';
 @use './styles/loader';
 @use './styles/categories';
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -41,7 +42,6 @@ ul {
 .html-text {
 	position: relative;
 	h1 {
-		line-height: 2.4;
 		font-size: 1.4rem;
 		font-weight: 900;
 	}
@@ -63,13 +63,6 @@ ul {
 	.ProseMirror {
 		outline: solid rgb(100, 99, 99) 2px;
 	}
-}
-.ProseMirror {
-	margin-top: 1rem;
-	min-height: 300px;
-	padding: 1rem;
-	border: none;
-	outline: solid #141b2d 2px;
 }
 // primary: '#972354',
 // secondary: '#141B2D',
